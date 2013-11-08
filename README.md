@@ -1,5 +1,9 @@
-katamari
+Katamari 塊
 ========
+Kick start package
+```
+$ cd grunt/
+$ npm install
+$ grunt
+```
 
-塊
-- npm install
