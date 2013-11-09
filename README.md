@@ -7,6 +7,7 @@ $ cd katamari/grunt/
 $ npm install
 $ grunt
 ```
+src/以下を編集
 
 ## 必要なもの
 - grunt
