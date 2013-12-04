@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+/* var */
+$content_width: 960px;
+$breakpoint_medium: 768px;
+$breakpoint_small: 600px;
+$base_margin: 1em;
+$unco: #631900;
+
+/* browser */
+@mixin clearfix {
+  *zoom:1;
+  &:after {
+    content: ".";
+    display:block;
+    visibility:hidden;
+    font-size: 0;
+    height:0;
+    clear:both;
+  }
+}
+@mixin inline_block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+@mixin border_radius($size) {
+  -webkit-border-radius: $size;
+     -moz-border-radius: $size;
+       -o-border-radius: $size;
+      -ms-border-radius: $size;
+          border-radius: $size;  
+}
+@mixin circle($size:40px) {
+     width: $size;
+     height: $size;
+     border-radius: 100%;
+}
+
+/* font */
+@mixin font_xxxlarge {
+  font-size:171%;/* 24px */
+}
+@mixin font_xxlarge {
+  font-size:142%;/* 20px */
+}
+@mixin font_xlarge {
+  font-size:128%;/* 18px */
+}
+@mixin font_large {
+  font-size:114%;/* 16px */
+}
+@mixin font_medium {
+  font-size:100%;/* 14px */
+}
+@mixin font_small {
+  font-size: 85%;/* 12px */
+}
+@mixin font_xsmall {
+  font-size: 71%;/* 10px */
+}
+@mixin font_xxsmall {
+  font-size: 57%;/* 8px */
+}
+
+/* reset */
+@mixin p_reset {
+  margin-top: 0;
+}
+@mixin form_reset {
+  display: inline-block;*display:inline;*zoom:1;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: none;
+}
