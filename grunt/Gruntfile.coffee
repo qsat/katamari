@@ -6,32 +6,51 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-compass'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
-  grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-contrib-connect'
 
-  # 変更があったファイルのみwatchの対象に。filter: changed_onlyで有効化
-  # http://mohayonao.hatenablog.com/entry/2013/03/26/093554
-  GRUNT_CHANGED_PATH = '.grunt-changed-file'
-  if grunt.file.exists GRUNT_CHANGED_PATH
-    changed = grunt.file.read GRUNT_CHANGED_PATH
-    grunt.file.delete GRUNT_CHANGED_PATH
-    changed_only = (file)-> file is changed
-  else
-    changed_only = -> true
-
-  grunt.event.on 'watch', (action, filepath, target)->
-    if action is 'changed'
-      grunt.file.write GRUNT_CHANGED_PATH, filepath
-    if action is 'deleted'
-      grunt.file.delete filepath.replace(/^\.\.\/src\/(.+)$/, '../htdocs/$1'), { force: true } # ファイルの削除
+  grunt.loadNpmTasks 'grunt-styleguide'
+  grunt.loadNpmTasks 'grunt-este-watch'
  
   grunt.initConfig
  
     pkg:
       grunt.file.readJSON 'package.json'
+
+    esteWatch:
+      options:
+        dirs: ["../src/**", '../htdocs/**']
+
+      coffee: (filepath) -> 'coffee'
+      scss:   (filepath) -> 'compass'
+      sass:   (filepath) -> 'compass'
+      css:    (filepath) -> 'styleguide'
+
+    connect:
+      server:
+        options:
+          port: 8008
+          hostname: '0.0.0.0'
+          base: '../htdocs'
+
+      styleguide:
+        options:
+          port: 8009
+          hostname: '0.0.0.0'
+          base: '../styleguide'
+
+    styleguide:
+      options:
+        framework:
+          name: 'styledocco'
+      proj:
+        options:
+          name: 'Style Guide'
+        files:
+          '../styleguide': ['../src/**/*.scss', '../src/**/.*.sass']
 
     copy:
       bower:
@@ -47,7 +66,6 @@ module.exports = (grunt) ->
         cwd: '../src'
         src: ['**/*', '!**/*.coffee', '!**/*.scss']
         dest: '../htdocs/'
-        filter: changed_only
 
     coffee:
       compile:
@@ -57,7 +75,6 @@ module.exports = (grunt) ->
         src: '**/*.coffee'
         dest: '../htdocs/'
         ext: '.js'
-        filter: changed_only
 
     jshint:
       htdocs: [
@@ -142,6 +159,6 @@ module.exports = (grunt) ->
       #     nospawn: false
 
   grunt.registerTask 'init', ['copy:bower']
-  grunt.registerTask 'default', ['watch']
+  grunt.registerTask 'default', ['connect', 'esteWatch']
   grunt.registerTask 'lint', ['jshint']
   grunt.registerTask 'build', ['uglify', 'cssmin']
