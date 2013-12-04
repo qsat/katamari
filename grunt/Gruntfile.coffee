@@ -22,12 +22,13 @@ module.exports = (grunt) ->
 
     esteWatch:
       options:
-        dirs: ["../src/**", '../htdocs/**']
+        dirs: ["../src/**"]
 
       coffee: (filepath) -> 'coffee'
       scss:   (filepath) -> 'compass'
       sass:   (filepath) -> 'compass'
       css:    (filepath) -> 'styleguide'
+      html:   (filepath) -> 'copy:src'
 
     connect:
       server:
@@ -132,33 +133,6 @@ module.exports = (grunt) ->
     #         '../htdocs/shared/css/theme.css'
     #       ]
 
-    watch:
-      src:
-        files: ['../src/**/*']
-        tasks: ['coffee', 'compass', 'copy:src']
-        options:
-          livereload: true
-          nospawn: false
-      # html:
-      #   files: ['../src/**/*.html']
-      #   tasks: ['copy:src']
-      #   options:
-      #     livereload: true
-      #     nospawn: false
-      # css:
-      #   files: ['../src/**/*.css', '../src/**/*.scss']
-      #   tasks: ['compass', 'copy:src']
-      #   options:
-      #     livereload: true
-      #     nospawn: false
-      # js:
-      #   files: ['../src/**/*.js', '../src/**/*.coffee']
-      #   tasks: ['coffee', 'copy:src']
-      #   options:
-      #     livereload: true
-      #     nospawn: false
-
-  grunt.registerTask 'init', ['copy:bower']
   grunt.registerTask 'default', ['connect', 'esteWatch']
   grunt.registerTask 'lint', ['jshint']
   grunt.registerTask 'build', ['uglify', 'cssmin']
