@@ -105,7 +105,7 @@ module.exports = (grunt) ->
           basePath: '../src'
           sassDir: './'
           cssDir: '../htdocs/'
-          # importPath: '../src/shared/styles'
+          importPath: '../config/scss'
 
     cssmin:
       src:
