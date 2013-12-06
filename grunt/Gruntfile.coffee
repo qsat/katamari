@@ -58,7 +58,7 @@ module.exports = (grunt) ->
         expand: true
         flatten: true
         cwd: '../bower/bower_components/' # srcの固定。destは固定されない
-        src: ['jquery/jquery.js']
+        src: ['*/*.js', '!*/*.min.js', '!*/*-min.js', '!*/index.js', '!*/*test*.js']
         dest: '../src/shared/js/libs'
         filter: 'isFile'
       src:
