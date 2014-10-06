@@ -2,7 +2,7 @@ Katamari 塊
 ========
 ## 使い方
 ```shell
-$ git clone --depth 1 https://github.com/tk-ota/katamari.git
+$ git clone --depth 1 https://github.com/qsat/katamari.git
 $ cd katamari/grunt/
 $ npm install
 $ grunt
